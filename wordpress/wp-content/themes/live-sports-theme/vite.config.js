@@ -4,16 +4,23 @@ import laravel from 'laravel-vite-plugin'
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin';
 
 export default defineConfig({
-  base: '/app/themes/sage/public/build/',
-  plugins: [
-    tailwindcss(),
-    laravel({
+  base: '/wp-content/themes/live-sports-theme/public/build/',
+  build: {
+    outDir: 'public/build',
+    assetsDir: '',
+    manifest: true,
+    rollupOptions: {
       input: [
         'resources/styles/app.scss',
         'resources/js/app.js',
         'resources/css/editor.css',
         'resources/js/editor.js',
       ],
+    },
+  },
+  plugins: [
+    tailwindcss(),
+    laravel({
       refresh: true,
     }),
 

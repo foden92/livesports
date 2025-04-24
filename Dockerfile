@@ -23,6 +23,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 # Set working directory
 WORKDIR /var/www/html/wp-content/themes/live-sports-theme
 
+# Create public directory
+RUN mkdir -p public/build && \
+    chown -R www-data:www-data public && \
+    chmod -R 755 public
+
 # Install Composer dependencies
 COPY wordpress/wp-content/themes/live-sports-theme/composer.json .
 RUN mkdir -p database/seeders
@@ -37,6 +42,9 @@ RUN yarn build
 
 # Generate optimized autoloader
 RUN composer dump-autoload --optimize
+
+# Set correct permissions
+RUN chown -R www-data:www-data /var/www/html/wp-content
 
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*

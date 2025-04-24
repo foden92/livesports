@@ -15,7 +15,34 @@ git clone <repository-url>
 cd live-sports
 ```
 
-2. Khởi động Docker containers:
+2. Tạo file .env từ mẫu:
+```bash
+# Copy file mẫu
+cp .env.example .env
+
+# Chỉnh sửa các thông số trong .env:
+# Database Configuration
+# - MYSQL_DATABASE=database_name
+# - MYSQL_USER=database_user
+# - MYSQL_PASSWORD=database_password
+# - MYSQL_ROOT_PASSWORD=root_password
+
+# WordPress Configuration
+# - WORDPRESS_DB_HOST=db
+# - WORDPRESS_DB_NAME=database_name
+# - WORDPRESS_DB_USER=database_user
+# - WORDPRESS_DB_PASSWORD=database_password
+# - WORDPRESS_DEBUG=1
+
+# Ports (có thể thay đổi nếu port bị conflict)
+# - WORDPRESS_PORT=8000
+# - PHPMYADMIN_PORT=8080
+
+# PHPMyAdmin
+# - PMA_HOST=db
+```
+
+3. Khởi động Docker containers:
 ```bash
 # Lần đầu hoặc sau khi thay đổi Dockerfile/dependencies
 docker-compose up -d --build
@@ -24,7 +51,7 @@ docker-compose up -d --build
 docker-compose up -d
 ```
 
-3. Cài đặt WordPress:
+4. Cài đặt WordPress:
 - Truy cập http://localhost:8000
 - Chọn ngôn ngữ
 - Điền thông tin cài đặt WordPress:
@@ -34,12 +61,12 @@ docker-compose up -d
   - Admin email: email của bạn
 - Click "Install WordPress"
 
-4. Kích hoạt theme:
+5. Kích hoạt theme:
 - Truy cập http://localhost:8000/wp-admin
 - Vào Appearance > Themes
 - Kích hoạt theme "Live Sports Theme"
 
-5. Import dữ liệu mẫu:
+6. Import dữ liệu mẫu:
 ```bash
 # Chạy migrations
 docker-compose exec -u www-data wordpress wp acorn migrate
@@ -87,18 +114,27 @@ docker-compose exec wordpress yarn build:production
 ```bash
 git clone <repository-url>
 cd live-sports
+
+# Copy và cấu hình .env cho môi trường production
+cp .env.example .env
+# Chỉnh sửa các thông số phù hợp với môi trường production
+# - Đổi database credentials
+# - Tắt WORDPRESS_DEBUG
+# - Cấu hình ports nếu cần
+
+# Khởi động containers
 docker-compose up -d --build
 ```
 
-2. Làm theo các bước cài đặt từ bước 3-5 ở trên
+2. Làm theo các bước cài đặt từ bước 4-6 ở trên
 
 ## Troubleshooting
 
 - Nếu gặp lỗi permissions: `chmod -R 777 wordpress/wp-content`
-- Nếu không kết nối được database: Kiểm tra credentials trong docker-compose.yml
+- Nếu không kết nối được database: Kiểm tra credentials trong .env
 - Cache issues: `docker-compose exec wordpress wp cache flush`
 - Nếu gặp lỗi khi chạy migrations/seeders: 
-  - Kiểm tra database connection
+  - Kiểm tra database connection trong .env
   - Xem logs: `docker-compose logs wordpress`
 
 ## License
