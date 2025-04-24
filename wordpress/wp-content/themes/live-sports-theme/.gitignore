@@ -1,0 +1,45 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Built assets
+/public/build/
+/public/hot/
+/public/storage/
+/public/mix-manifest.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Cache files
+.cache/
+*.cache
+.php_cs.cache
+
+# Editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Compiled files
+*.map
+*.min.js
+*.min.css
