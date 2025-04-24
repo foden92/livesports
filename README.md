@@ -66,6 +66,11 @@ docker-compose up -d
 - Vào Appearance > Themes
 - Kích hoạt theme "Live Sports Theme"
 
+Nếu gặp lỗi không tìm thấy file manifest.json, chạy lệnh sau:
+```bash
+docker-compose exec wordpress bash -c "cd wp-content/themes/live-sports-theme && yarn build"
+```
+
 6. Import dữ liệu mẫu:
 ```bash
 # Chạy migrations
