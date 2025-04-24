@@ -107,10 +107,7 @@ Theme assets (CSS, JS) được tự động build trong container. Các files �
 Khi cần rebuild assets:
 ```bash
 # Rebuild theme assets
-docker-compose exec wordpress yarn build
-
-# Hoặc build cho production
-docker-compose exec wordpress yarn build:production
+docker-compose exec wordpress bash -c "cd wp-content/themes/live-sports-theme && yarn build"
 ```
 
 ## Deployment
